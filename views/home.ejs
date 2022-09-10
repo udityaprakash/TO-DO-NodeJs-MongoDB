@@ -1,0 +1,27 @@
+<%- include("header") -%>
+<div class="login">
+    <h1>Enter Works</h1>
+    <form action="/to_do" method="post">
+        <input type="text" onfocus="this.value=''" name="task" autocomplete="off" placeholder="TASK" required>
+        <button class="addbtn" type="submit">+</button>
+
+    </form>
+</div>
+    <% if(taskarray.tasks.length>0){ %>
+        <% taskarray.tasks.forEach(tasks =>{%>
+        <div class="task">
+            <%= tasks %>  
+            <!-- <div class="tick">   -->
+                <form class="taskf" action="/to_do/delete" method="post">  
+                    <button type="submit" class="tick" name="ttt" value=<%= li %>>
+                        <span class="material-symbols-outlined tick">
+                        check_circle
+                        </span>
+                    </button>
+                    <% li++%>
+                </form>  
+            <!-- </div>     -->
+        </div>
+    <% })}%>
+    
+<%- include("footer") -%>

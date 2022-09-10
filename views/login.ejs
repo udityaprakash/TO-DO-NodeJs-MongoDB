@@ -1,0 +1,13 @@
+<%- include("header") -%>
+<div class="login">
+    <h1><%= h %></h1>
+    <form action="/" method="post">
+        <input type="text" minlength="6" name="user" placeholder="Username" autocomplete="off" required>
+        <button class="loginbtn" type="submit">Login</button>
+
+    </form>
+</div> 
+<div class="note">
+    NOTE: Please enter Unique username, as it will be your login credentials.
+</div>
+<%- include("footer") -%>

@@ -1,0 +1,176 @@
+body{
+    margin: 0%;
+    padding: 0%;
+}
+.wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -2;
+    background: linear-gradient(120deg,rgb(255, 0, 0) ,blue);
+}
+.circ div{
+    position: absolute;
+    z-index: -1;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 6px solid;
+    box-shadow: 30px 30px 5px rgba(35, 35, 35, 0.438);
+    border-image: linear-gradient(45deg,rgba(255, 0, 0, 0.745),rgba(0, 0, 255, 0.745)) 10;
+}
+.circ div:nth-child(1){
+    top: 12%;
+    left: 42%;
+    animation: jump 10s linear infinite;
+}
+.circ div:nth-child(2){
+    top: 70%;
+    left: 90%;
+    animation: jump 7s linear infinite;
+}
+.circ div:nth-child(3){
+    top: 17%;
+    left: 6%;
+    animation: jump 9s linear infinite;
+}
+.circ div:nth-child(4){
+    top: 20%;
+    left: 60%;
+    animation: jump 10s linear infinite;
+}
+.circ div:nth-child(5){
+    top: 67%;
+    left: 10%;
+    animation: jump 6s linear infinite;
+}
+.circ div:nth-child(6){
+    top: 80%;
+    left: 70%;
+    animation: jump 12s linear infinite;
+}
+.circ div:nth-child(7){
+    top: 60%;
+    left: 80%;
+    animation: jump 15s linear infinite;
+}
+.circ div:nth-child(8){
+    top: 32%;
+    left: 25%;
+    animation: jump 16s linear infinite;
+}
+.circ div:nth-child(9){
+    top: 90%;
+    left: 25%;
+    animation: jump 9s linear infinite;
+}
+.circ div:nth-child(10){
+    top: 20%;
+    left: 80%;
+    animation: jump 5s linear infinite;
+}
+@keyframes jump {
+    0%{
+        transform: scale(0) translateY(0) rotate(0);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(1.2) translateY(-600px) rotate(360deg);
+        opacity: 1;
+    }
+    
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
+    background-color: rgba(35, 35, 35, 0.523);
+    max-width:80%;
+    width: 30%;
+    padding: 10px;
+    z-index: 1;
+    text-align: center;
+    min-height: 50px;
+    overflow: hidden;
+    box-shadow: 20px 15px 10px rgba(35, 35, 35, 0.438);
+}
+.task{
+    margin: 2% auto;
+    background-color: rgba(39, 39, 39, 0.636);
+    max-width:80%;
+    color: rgb(189, 189, 189);
+    width: 50%;
+    padding: 10px;
+    z-index: 1;
+    box-shadow: 20px 15px 10px rgba(25, 25, 25, 0.438);
+}
+form input,input:focus{
+    outline: none;
+    height: 20px;
+}
+.note{
+    position : absolute;
+    right : 10px;
+    top: 30%;
+    z-index: 1;
+    width: 30%;
+    max-width: 20rem;
+    background-color: aliceblue;
+}
+.loginbtn{
+    background: linear-gradient(120deg,rgba(255, 0, 0, 0.8) ,rgba(0, 0, 255, 0.8));
+    width: 4rem;
+    height: 23px;
+    border: 0px;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: aliceblue;
+}
+.loginbtn:hover{
+    background: linear-gradient(120deg,rgb(255, 0, 0) ,blue);
+    
+}
+.addbtn{
+    background-color: rgba(35, 35, 35, 0.612);
+    border-radius: 0%;
+    font-size: larger;
+    margin: auto 3px;
+    height: 25px;
+    color: aliceblue;
+    z-index: 2;
+    border: 0px;
+    transition: color 1s ease-in;
+}
+.addbtn:hover{
+    color: rgba(35, 35, 35, 0.995);
+    background-color: rgb(1, 218, 225);
+}
+h1{
+    margin-top: 0px;
+}
+.tick{
+    float: right;
+    cursor: pointer;
+    margin: auto 2px;
+    background: transparent;
+    border: 0px;
+    transition: color 0.5s ease-in-out;
+}
+.tick:hover{
+    color: aliceblue;
+}
+form .taskf{
+    float: left;
+    display:flex;
+}
+@media screen and (max-width: 560px) {
+    .login{
+        min-width: 70%;
+    }
+    .task{
+        margin: 6% auto;
+        min-width: 80%;
+    }
+}
+
