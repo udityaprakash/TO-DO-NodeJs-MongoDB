@@ -113,7 +113,7 @@ form input,input:focus{
     position : absolute;
     right : 10px;
     top: 30%;
-    z-index: 1;
+    z-index: -1;
     width: 30%;
     max-width: 20rem;
     background-color: aliceblue;
@@ -123,6 +123,7 @@ form input,input:focus{
     width: 4rem;
     height: 23px;
     border: 0px;
+    margin: 5% 5% 0%;
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: aliceblue;
@@ -138,7 +139,7 @@ form input,input:focus{
     margin: auto 3px;
     height: 25px;
     color: aliceblue;
-    z-index: 2;
+    z-index: 0;
     border: 0px;
     transition: color 1s ease-in;
 }

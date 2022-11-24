@@ -2,12 +2,12 @@
 <div class="login">
     <h1><%= h %></h1>
     <form action="/" method="post">
-        <input type="text" minlength="6" name="user" placeholder="Username" autocomplete="off" required>
-        <button class="loginbtn" type="submit">Login</button>
-
+        <input type="text" minlength="8" name="usern" placeholder="Username" autocomplete="off" required>
+        <input type="password" name="passn" minlength="8" name="Password" placeholder="Password" autocomplete="off" required>
+        <button class="loginbtn" type="submit" onclick="check()">Login</button>
+    </form>
+    <form action="/signup" method="get">
+        <button class="loginbtn" type="submit">SignUp</button>
     </form>
 </div> 
-<div class="note">
-    NOTE: Please enter Unique username, as it will be your login credentials.
-</div>
 <%- include("footer") -%>

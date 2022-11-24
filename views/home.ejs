@@ -1,18 +1,19 @@
 <%- include("header") -%>
 <div class="login">
     <h1>Enter Works</h1>
-    <form action="/to_do" method="post">
+    <form action="/todo-<%= username %>" method="post">
+        <input type="hidden" name="id" value= <%= userid %> >
         <input type="text" onfocus="this.value=''" name="task" autocomplete="off" placeholder="TASK" required>
-        <button class="addbtn" type="submit">+</button>
+        <button class="addbtn" type="submit" value=<%= username %>>+</button>
 
     </form>
 </div>
-    <% if(taskarray.tasks.length>0){ %>
-        <% taskarray.tasks.forEach(tasks =>{%>
+    <% usertask.forEach((ta) =>{%>
         <div class="task">
-            <%= tasks %>  
+            <%= ta %>  
             <!-- <div class="tick">   -->
-                <form class="taskf" action="/to_do/delete" method="post">  
+                <form class="taskf" action="/deleting" method="post"> 
+                    <input type="hidden" name="id" value=<%= userid %>> 
                     <button type="submit" class="tick" name="ttt" value=<%= li %>>
                         <span class="material-symbols-outlined tick">
                         check_circle
@@ -22,6 +23,6 @@
                 </form>  
             <!-- </div>     -->
         </div>
-    <% })}%>
+    <% })%>
     
 <%- include("footer") -%>
