@@ -7,7 +7,14 @@ const app = express();
 var auth = 0;
 var n=0;
 
-mongoose.connect("mongodb://localhost:27017/TaskDB");
+// mongoose.connect("mongodb://localhost:27017/TaskDB");
+mongoose.connect("mongodb+srv://udityaprakash:kBjVfH94vbTk1rJA@cluster0.pbkthhd.mongodb.net/?retryWrites=true&w=majority",(err)=>{
+if(!err){
+    console.log("db connected successfully");
+}else{
+    console.log(err);
+}
+});
 const userSchema = new mongoose.Schema({
     name : String,
     password: String,
@@ -45,7 +52,7 @@ app.post("/",async (req,res) =>{
     n = 10;
     var clientpass = req.body.passn; 
     var id =  await findingclient(client,clientpass);  
-    console.log(id);
+    // console.log(id);
     if(id!=''){
         res.redirect("/todo?id="+id);
     }else{
@@ -96,7 +103,6 @@ app.post("/deleting",async (req,res) =>{
     var taskno = req.body.ttt;
     var id=req.body.id;
     const taskt = "tasks."+taskno;
-    console.log(taskt);
     await userData.updateOne({"_id":id},{$unset:{"tasks.0":1}});
     await userData.updateOne({"_id":id},{$pull:{"tasks":null}});
 
@@ -121,7 +127,7 @@ app.post("/signup",(req,res)=>{
     let password = req.body.npass;
     let mobile = req.body.phoneno;
     createuser(user,password,mobile);
-    console.log(user + " " + password + " "+ mobile);
+    // console.log(user + " " + password + " "+ mobile);
     res.redirect("/");
 
 })
