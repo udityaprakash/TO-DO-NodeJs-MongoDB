@@ -24,109 +24,84 @@ var li=0;
 
 
 app.get("/",(req , res) => {
-    alert("welcome");
     res.render("login.ejs",{h : "LOGIN"});
 });
-// var ur1 = new userData({
-//     name : "adminin9838",
-//     password: "adminin9838",
-//     mobileno: 9838652965,
-//     tasks: ["hello1","hello2"]
-// });
-// ur1.save((err)=>{
-//     if(err){
-//         console.log(err);
-//     }
-//     else{
-//         console.log("successfully added");
-//     }
-// });
-function findingclient(client,clientpass){
-    userData.find({name:client,password:clientpass},(err,u) => {
-        if(!err){
-
-            // console.log("\n the length in database - "+u.length+"\n");
-            // for(let i=0;i<u.length;i++){
-            //     if (client == u[i].name && clientpass == u[i].password){
-                    auth = 1;
-                //     console.log("user data found");
-                // }else{
-                //     n = 0;
-                // }
-            }
-        // }
-        else{
-            console.log("error while contacting the server\n"+err);
-        }
-        });
+async function findingclient(client,clientpass){
+  var u = await userData.find({name:client,password:clientpass});
+  console.log(u[0]);
+  if(u.length==0){
+    console.log("no user found\n");
+    return false;
+  }
+  else{
+    console.log("user found");
+    return u[0]._id; 
+  }
 }
 
-app.post("/",(req,res) =>{
+app.post("/",async (req,res) =>{
     var client = req.body.usern;
     auth = 0;
     n = 10;
-    var clientpass = req.body.passn;
-    findingclient(client,clientpass);
-    
-    if(n == 0 && auth != 1){
-        alert("No Such User Found..");
+    var clientpass = req.body.passn; 
+    var id =  await findingclient(client,clientpass);  
+    console.log(id);
+    if(id!=''){
+        res.redirect("/todo?id="+id);
     }else{
-        res.redirect("/todo?username="+client+"&&"+"pass="+clientpass);
+        alert("No Such User Found..");
+        res.redirect("/");
     }
     });
 
-app.get("/todo",(req,res) =>{
+app.get("/todo",async (req,res) => {
     var usertask = [];
-    var username = req.query.username;
-    var passwor=req.query.pass;
+    var id = req.query.id;
+    if (typeof id=='undefined'){
+        res.redirect("/");
+    }
     li=0;
-    console.log(username+" "+passwor+" redirected successfully \n");
-    // userData.findOne({'name' : username,password:passwor},'tasks',(err,result) =>{
-    //     if(!err){
-    //         usertask = result.tasks;
-    //         console.log(result.tasks);
-    //         // console.log("Id: "+result._id.toString());
-    //         // console.log("user data taken from database \n"+result[0]+"\n");
-    //         // li=0;
-    //         // console.log(usertask);
-    //         // res.send(usertask);
-    //         userid = result._id.toString();
-    //         console.log("Id: "+userid);
-    //         res.render("home.ejs",{userid,username , usertask,li});
-    //     }else{
-    //         console.log("error while matching from server \n"+err);
 
-    //         res.redirect("/");
-    //     }
-
-    // });
-    // if (taskarray.name == null ){
-    //     res.redirect("/");
-    // }
-    // else{
-    //     li = 0;
-    //     res.render("home.ejs",{taskarray,li});     
-    // }
+    const result = await userData.findOne({'_id' : id});
+    console.log(result);
+    usertask = result.tasks;
+    li=0;
+    var userid=result._id;
+    var username = result.name;
+    res.render("home.ejs",{userid,username , usertask,li});
 });
-app.post("/todo-:user",async (req,res) =>{
+
+async function user(id){
+    var u = await userData.findOne({'_id':id});
+  if(u.length==0){
+    console.log("no user found\n");
+  }
+  else{
+    return u; 
+  }
+}
+
+app.post("/todo",async (req,res) =>{
     var valve=req.body.task;
     var userid=req.body.id;
-    var username = req.params.user;
-    console.log("id :"+userid+" "+valve+" "+username);
+    console.log("id :"+userid+" "+valve);
     let doc = await userData.findOneAndUpdate({_id:userid},
        { $push: {tasks : valve}
     }).catch(err =>{
         console.log("error in adding into datanase\n");
        });
-    res.redirect("/todo-"+username);   
+    res.redirect("/todo?id="+userid);   
 });
-app.post("/deleting",(req,res) =>{
+app.post("/deleting",async (req,res) =>{
     var taskno = req.body.ttt;
     var id=req.body.id;
-    userData.updateOne({_id:id},{})
+    const taskt = "tasks."+taskno;
+    console.log(taskt);
+    await userData.updateOne({"_id":id},{$unset:{"tasks.0":1}});
+    await userData.updateOne({"_id":id},{$pull:{"tasks":null}});
 
     
-    res.redirect("/to_do");
+    res.redirect("/todo?id="+id);
 });
 async function createuser(user,passwor,mobile){
     var us_1 = new userData({

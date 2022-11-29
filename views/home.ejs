@@ -1,7 +1,7 @@
 <%- include("header") -%>
 <div class="login">
     <h1>Enter Works</h1>
-    <form action="/todo-<%= username %>" method="post">
+    <form action="/todo" method="post">
         <input type="hidden" name="id" value= <%= userid %> >
         <input type="text" onfocus="this.value=''" name="task" autocomplete="off" placeholder="TASK" required>
         <button class="addbtn" type="submit" value=<%= username %>>+</button>
