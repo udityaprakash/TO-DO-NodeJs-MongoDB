@@ -16,9 +16,21 @@ if(!err){
 }
 });
 const userSchema = new mongoose.Schema({
-    name : String,
-    password: String,
-    mobileno: Number,
+    name : {
+     type:String,
+     min:8,
+     max:30
+    },
+    password: {
+        type:String,
+        min:8,
+        max:30
+       },
+    mobileno: {
+        type:Number,
+        min:10,
+        max:10
+       },
     tasks: Array
 });
 

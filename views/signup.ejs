@@ -2,10 +2,10 @@
 <div class="login">
     <h1><%= h %></h1>
     <form id ="createuser"action="/signup" method="post">
-        <input type="text" minlength="8" name="nuser" placeholder="Username" autocomplete="off" required>
+        <input type="text" minlength="8" maxlength="30" name="nuser" class="usernaam" placeholder="Username" autocomplete="off" required>
         <input type="password" minlength="8" name="npass" class="pass1" placeholder="Password" autocomplete="off" required>
         <input type="password" minlength="8" class="pass2" placeholder="Re Enter Password" autocomplete="off" required>
-        <input type="number" minlength="10" name="phoneno" placeholder="Mobile Number" autocomplete="off" required>
+        <input type="number" minlength="10" maxlength="10" class="num" name="phoneno" placeholder="Mobile Number" autocomplete="off" required>
         <button class="loginbtn" onclick="userinfo()">SignUp</button>
 
     </form>
