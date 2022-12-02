@@ -4,10 +4,6 @@ const mongoose = require("mongoose");
 const { render } = require("ejs");
 const alert = require("alert")
 const app = express();
-var auth = 0;
-var n=0;
-
-// mongoose.connect("mongodb://localhost:27017/TaskDB");
 mongoose.connect("mongodb+srv://udityaprakash:kBjVfH94vbTk1rJA@cluster0.pbkthhd.mongodb.net/?retryWrites=true&w=majority",(err)=>{
 if(!err){
     console.log("db connected successfully");
@@ -19,17 +15,14 @@ const userSchema = new mongoose.Schema({
     name : {
      type:String,
      min:8,
-     max:30
     },
     password: {
         type:String,
         min:8,
-        max:30
        },
     mobileno: {
         type:Number,
         min:10,
-        max:10
        },
     tasks: Array
 });
