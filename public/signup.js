@@ -5,7 +5,7 @@ function userinfo(){
     let num = document.querySelector(".num").value;
     if(pass1 === pass2){
         if(username.length>=8){
-            if(num.length==10){
+            if(num>=5000000000){
                     document.getElementById("createuser").submit();
 
                 }else{

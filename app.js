@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const { render } = require("ejs");
 const alert = require("alert")
 const app = express();
+
 mongoose.connect("mongodb+srv://udityaprakash:kBjVfH94vbTk1rJA@cluster0.pbkthhd.mongodb.net/?retryWrites=true&w=majority",(err)=>{
+    // mongoose.connect("mongodb+srv://udityaprakash01:sAMc1FmiB4wWnxAx@cluster0.za5wk8j.mongodb.net/?retryWrites=true&w=majority",(err)=>{    
 if(!err){
     console.log("db connected successfully");
 }else{
@@ -22,7 +24,7 @@ const userSchema = new mongoose.Schema({
        },
     mobileno: {
         type:Number,
-        min:10,
+        min:5000000000,
        },
     tasks: Array
 });
