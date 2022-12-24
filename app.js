@@ -132,18 +132,26 @@ async function createuser(user,passwor,mobile){
         tasks:[]
     });
     console.log("\n Creating new user \n")
-    await us_1.save();
+    await us_1.save().then((user)=>{
+        return 1;
+    }).catch((err)=>{
+        return 0;
+    });
 }
 app.get("/signup",(req,res)=>{
-    res.render("signup.ejs",{h: "SignUp"});
+    res.render("signup.ejs",{h: "SignUp",msg:''});
 })
 app.post("/signup",(req,res)=>{
     let user = req.body.nuser;
     let password = hash(req.body.npass);
     let mobile = req.body.phoneno;
-    createuser(user,password,mobile);
+    let success = createuser(user,password,mobile);
     // console.log(user + " " + password + " "+ mobile);
-    res.redirect("/");
+    if(success){
+        res.redirect("/");
+    }else{
+        res.render("signup.ejs",{h: "SignUp",msg:"<p>Data Not Recorded</p>"});
+    }
 
 })
 app.listen(process.env.PORT || 3000,() =>{
