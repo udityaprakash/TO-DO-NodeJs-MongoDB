@@ -2,17 +2,25 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const { render } = require("ejs");
-const alert = require("alert")
+// const alert = require("alert")
 const app = express();
+const hash = require("md5");
 
-mongoose.connect("mongodb+srv://udityaprakash:kBjVfH94vbTk1rJA@cluster0.pbkthhd.mongodb.net/?retryWrites=true&w=majority",(err)=>{
-    // mongoose.connect("mongodb+srv://udityaprakash01:sAMc1FmiB4wWnxAx@cluster0.za5wk8j.mongodb.net/?retryWrites=true&w=majority",(err)=>{    
-if(!err){
-    console.log("db connected successfully");
-}else{
-    console.log(err);
+function connectdatabase(){
+
+    mongoose.connect("mongodb+srv://udityaprakash:kBjVfH94vbTk1rJA@cluster0.pbkthhd.mongodb.net/?retryWrites=true&w=majority", (err) => {
+        // mongoose.connect("mongodb+srv://udityaprakash01:sAMc1FmiB4wWnxAx@cluster0.za5wk8j.mongodb.net/?retryWrites=true&w=majority",(err)=>{    
+        if (!err) {
+            console.log("db connected successfully");
+        } else {
+            console.log("Retrying connecting to database");
+            connectdatabase();
+        }
+    });
 }
-});
+
+connectdatabase();
+
 const userSchema = new mongoose.Schema({
     name : {
      type:String,
@@ -38,7 +46,7 @@ var li=0;
 
 
 app.get("/",(req , res) => {
-    res.render("login.ejs",{h : "LOGIN"});
+    res.render("login.ejs",{h : "LOGIN",msg:''});
 });
 async function findingclient(client,clientpass){
   var u = await userData.find({name:client,password:clientpass});
@@ -57,14 +65,14 @@ app.post("/",async (req,res) =>{
     var client = req.body.usern;
     auth = 0;
     n = 10;
-    var clientpass = req.body.passn; 
+    var clientpass = hash(req.body.passn); 
     var id =  await findingclient(client,clientpass);  
     // console.log(id);
     if(id!=''){
         res.redirect("/todo?id="+id);
     }else{
-        alert("No Such User Found..");
-        res.redirect("/");
+        // alert("No Such User Found..");
+        res.render("login.ejs",{h : "LOGIN",msg:'No such user Found'});
     }
     });
 
@@ -131,7 +139,7 @@ app.get("/signup",(req,res)=>{
 })
 app.post("/signup",(req,res)=>{
     let user = req.body.nuser;
-    let password = req.body.npass;
+    let password = hash(req.body.npass);
     let mobile = req.body.phoneno;
     createuser(user,password,mobile);
     // console.log(user + " " + password + " "+ mobile);
