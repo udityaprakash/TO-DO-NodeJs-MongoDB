@@ -72,7 +72,7 @@ app.post("/",async (req,res) =>{
         res.redirect("/todo?id="+id);
     }else{
         // alert("No Such User Found..");
-        res.render("login.ejs",{h : "LOGIN",msg:'No such user Found'});
+        res.render("login.ejs",{h : "LOGIN",msg:'<p class="err">No such user Found</p>'});
     }
     });
 
